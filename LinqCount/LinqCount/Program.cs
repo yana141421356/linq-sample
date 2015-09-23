@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,37 @@ namespace LinqCount
                 count++;
             }
             return count;
+        }
+
+        public class Collection<T> : IEnumerable<T>
+        {
+            List<T> list;
+
+            public Collection()
+            {
+                list = new List<T>();
+            }
+
+            public void AddObject(T item)
+            {
+                list.Add(item);
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                for( int i = 0; i < 10; i++)
+                {
+                    if ( i % 2 == 0)
+                    {
+                        yield return list[i];
+                    }
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
         }
     }
 }
